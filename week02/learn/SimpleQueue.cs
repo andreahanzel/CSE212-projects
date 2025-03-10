@@ -53,9 +53,11 @@
     /// Enqueue the value provided into the queue
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
+    
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+    _queue.Add(value);  // This adds value to the back, not the front (ERROR FIXED: Enqueue Inserts in Wrong Order)
     }
+
 
     /// <summary>
     /// Dequeue the next value and return it
@@ -66,8 +68,8 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0]; // This should be 1 instead of 0 (ERROR FIXED: Dequeue Removes from Wrong Position)
+        _queue.RemoveAt(0); // This should be 0 instead of 1 (ERROR FIXED: Dequeue Removes from Wrong Position)
         return value;
     }
 }
