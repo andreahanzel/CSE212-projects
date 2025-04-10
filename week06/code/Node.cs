@@ -11,35 +11,57 @@ public class Node
 
     public void Insert(int value)
     {
+
         // TODO Start Problem 1
 
-        if (value < Data)
+        if (value == Data) // No duplicates allowed
+        {
+            
+            return; 
+        }
+        else if (value < Data)
         {
             // Insert to the left
             if (Left is null)
-                Left = new Node(value);
+                Left = new Node(value); // Create new node if left is null
             else
-                Left.Insert(value);
+                Left.Insert(value); // Recursive call to insert in left subtree
         }
         else
         {
             // Insert to the right
             if (Right is null)
-                Right = new Node(value);
+                Right = new Node(value); // Create new node if right is null
             else
-                Right.Insert(value);
+                Right.Insert(value); // Recursive call to insert in right subtree
         }
     }
 
-    public bool Contains(int value)
+
+    public bool Contains(int value) 
     {
         // TODO Start Problem 2
-        return false;
+
+        if (value == Data) // Found the value
+        {
+            return true; 
+        }
+        else if (value < Data) // Search in the left subtree
+        {
+            return Left != null && Left.Contains(value); // Search in the left subtree
+        }
+        else
+        {
+            return Right != null && Right.Contains(value); // Search in the right subtree
+        }
     }
 
     public int GetHeight()
     {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+
+        int leftHeight = Left?.GetHeight() ?? 0; // if Left is null, height is 0
+        int rightHeight = Right?.GetHeight() ?? 0; // if Right is null, height is 0
+        return 1 + Math.Max(leftHeight, rightHeight); // Height of the current node
     }
 }
